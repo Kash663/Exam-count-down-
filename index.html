@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1020"><meta name="description" content="A daily-updating exam countdown in Indian Standard Time.">
+<title>Exam Countdown | IST</title>
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+:root{color-scheme:dark;--bg:#080d19;--panel:#111a2c;--line:#27354d;--text:#f4f7ff;--muted:#a4b2ca;--blue:#8eb8ff;--gold:#ffd27d}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at top,#172747 0,#080d19 55%);font-family:Inter,system-ui,-apple-system,Segoe UI,sans-serif;color:var(--text);display:flex;justify-content:center;padding:22px 14px}
+main{width:min(100%,520px)}.top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:8px 0 18px}.brand{font-weight:800;letter-spacing:.08em;font-size:14px}.pill{border:1px solid #395078;color:var(--blue);padding:6px 10px;border-radius:999px;font-size:12px;font-weight:700}
+.hero,.panel{background:linear-gradient(145deg,rgba(20,31,52,.97),rgba(12,19,34,.97));border:1px solid var(--line);border-radius:24px;padding:22px;box-shadow:0 20px 50px #0003}.eyebrow{font-size:11px;letter-spacing:.18em;color:var(--muted);font-weight:800}.count-label{text-align:center;margin-top:26px}.count{font-size:clamp(68px,18vw,104px);font-weight:900;letter-spacing:-.07em;line-height:1;margin:12px 0;color:var(--text);text-align:center}.count span{font-size:19px;letter-spacing:0;color:var(--blue);display:block;margin-top:5px}.date{text-align:center;color:var(--blue);font-weight:750;font-size:17px}.timer{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:24px 0 4px}.unit{background:#0a1222;border:1px solid #263752;border-radius:14px;text-align:center;padding:12px 4px}.num{font-size:24px;font-weight:850;font-variant-numeric:tabular-nums}.unit small{display:block;color:var(--muted);font-size:10px;letter-spacing:.13em;margin-top:3px}.next{margin-top:18px;padding:15px;background:#1a2942;border-radius:15px;display:flex;justify-content:space-between;gap:12px;align-items:center}.next strong{display:block;margin-top:5px}.muted{color:var(--muted)}.small{font-size:12px}.sectionhead{display:flex;justify-content:space-between;align-items:center;margin:24px 2px 12px}.sectionhead h2{font-size:16px;margin:0}.event{display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}.event:last-child{border-bottom:0}.daybox{min-width:55px;background:#0a1222;border:1px solid #2a3a55;border-radius:12px;text-align:center;padding:8px 4px}.daybox b{display:block;font-size:20px}.daybox small{font-size:10px;color:var(--muted)}.eventinfo{flex:1;min-width:0}.eventinfo b{display:block;font-size:14px}.eventinfo small{display:block;color:var(--muted);margin-top:4px}.tag{font-size:10px;color:var(--gold);border:1px solid #6c5932;border-radius:999px;padding:5px 7px;white-space:nowrap}.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:15px}.btn{border:1px solid #344765;background:#17243a;color:var(--text);padding:11px 14px;border-radius:12px;font-weight:700;font-size:12px;cursor:pointer}.btn.primary{background:var(--blue);color:#08111f;border-color:var(--blue)}.foot{text-align:center;color:#71819c;font-size:11px;line-height:1.6;margin:18px 8px}.hidden{display:none}input,select{background:#081120;color:var(--text);border:1px solid #344765;border-radius:10px;padding:10px;width:100%;font:inherit}label{display:block;font-size:12px;color:var(--muted);margin:10px 0 5px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.full{grid-column:1/-1}
+@media(min-width:480px){body{padding-top:35px}.hero{padding:28px}}
+</style>
+</head>
+<body><main>
+<div class="top"><div><div class="brand">EXAM COUNTDOWN</div><div class="muted small" style="margin-top:5px">PARUL UNIVERSITY · SEMESTER 1</div></div><div class="pill">● IST · UTC+05:30</div></div>
+<section class="hero">
+<div class="eyebrow">YOUR NEXT EXAM</div>
+<div class="count-label eyebrow">COUNTDOWN TO EXAM DAY</div>
+<div class="count" id="days">23<span>DAYS LEFT</span></div>
+<div class="date" id="targetDate">19 NOVEMBER 2026</div>
+<div class="timer"><div class="unit"><div class="num" id="hours">--</div><small>HOURS</small></div><div class="unit"><div class="num" id="minutes">--</div><small>MINUTES</small></div><div class="unit"><div class="num" id="seconds">--</div><small>SECONDS</small></div></div>
+<div class="next"><div><div class="eyebrow">UP NEXT</div><strong id="nextName">Web Designing</strong><div class="muted small" id="nextWhen">19 Nov · 10:00 AM IST</div></div><span class="tag" id="status">COMING UP</span></div>
+<div class="actions"><button class="btn primary" id="editBtn">Edit exam dates</button><button class="btn" id="wallBtn">Widget / wallpaper tips</button></div>
+</section>
+<section class="panel hidden" id="editor" style="margin-top:14px">
+<div class="sectionhead" style="margin-top:0"><h2>Edit next exam</h2><button class="btn" id="closeBtn">Close</button></div>
+<label for="examName">Exam name</label><input id="examName" maxlength="70" value="Web Designing">
+<div class="formgrid"><div><label for="examDate">Date</label><input type="date" id="examDate" value="2026-11-19"></div><div><label for="examTime">Start time (IST)</label><input type="time" id="examTime" value="10:00"></div></div>
+<div class="actions"><button class="btn primary" id="saveBtn">Save exam</button><button class="btn" id="resetBtn">Reset schedule</button></div>
+<p class="muted small">Saved on this device/browser. The countdown recalculates automatically; the page uses Asia/Kolkata time.</p>
+</section>
+<div class="sectionhead"><h2>Exam schedule</h2><span class="muted small" id="examCount">6 exams</span></div>
+<section class="panel" id="schedule"></section>
+<section class="panel hidden" id="tips" style="margin-top:14px"><h2 style="margin-top:0;font-size:16px">Make it a home-screen widget</h2><p class="muted small">This app is a working, mobile-friendly countdown page. Android does not let a normal webpage become a native resizable home-screen widget by itself.</p><ol class="small" style="line-height:1.8;padding-left:20px"><li>Host this folder on an HTTPS site (for example, GitHub Pages).</li><li>Open the live site in Chrome on Android.</li><li>Tap ⋮ → <b>Add to Home screen</b> or <b>Install app</b>.</li><li>For a true always-visible widget, use an Android widget wrapper or a widget app that supports a website/HTML widget. A home-screen shortcut opens the app but is not the same as a native widget.</li></ol><p class="muted small">Wallpaper alternative: take a screenshot of the countdown screen and set it as wallpaper, but that image will not update by itself.</p></section>
+<div class="foot">Countdown is calculated in India Standard Time (Asia/Kolkata). Keep this page open for live seconds; reopen it anytime to refresh. Your saved edits stay in this browser.</div>
+</main>
+<script>
+const KEY='parulExamCountdownV1';
+const defaults=[
+ {name:'Web Designing',date:'2026-11-19',time:'10:00'},
+ {name:'Prompt Engineering',date:'2026-11-19',time:'14:45'},
+ {name:'Calculus',date:'2026-11-20',time:'10:00'},
+ {name:'Physics / Applied Physics',date:'2026-11-23',time:'10:00'},
+ {name:'Programming for Problem Solving',date:'2026-11-24',time:'10:00'},
+ {name:'Electrical & Electronics Engineering (EEE)',date:'2026-11-25',time:'10:00'}
+];
+let exams=load();
+function load(){try{const x=JSON.parse(localStorage.getItem(KEY));return Array.isArray(x)&&x.length?x:defaults.map(e=>({...e}));}catch{return defaults.map(e=>({...e}));}}
+function save(){localStorage.setItem(KEY,JSON.stringify(exams));}
+function parseIST(e){return new Date(`${e.date}T${e.time||'10:00'}:00+05:30`);}
+function fmtDate(d,opts){return new Intl.DateTimeFormat('en-IN',{timeZone:'Asia/Kolkata',...opts}).format(d);}
+function fmtTime(e){return fmtDate(parseIST(e),{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit',hour12:true})+' IST';}
+function sorted(){return [...exams].sort((a,b)=>parseIST(a)-parseIST(b));}
+function update(){
+ const now=Date.now(), upcoming=sorted().find(e=>parseIST(e).getTime()>now);
+ const first=upcoming||sorted().at(-1)||defaults[0], target=parseIST(first), diff=target.getTime()-now;
+ const dayEl=document.getElementById('days');
+ if(diff>0){const d=Math.floor(diff/86400000);dayEl.innerHTML=`${d}<span>${d===1?'DAY':'DAYS'} LEFT</span>`;document.getElementById('hours').textContent=String(Math.floor(diff/3600000)%24).padStart(2,'0');document.getElementById('minutes').textContent=String(Math.floor(diff/60000)%60).padStart(2,'0');document.getElementById('seconds').textContent=String(Math.floor(diff/1000)%60).padStart(2,'0');}
+ else {dayEl.innerHTML=`0<span>EXAMS PASSED</span>`;['hours','minutes','seconds'].forEach(id=>document.getElementById(id).textContent='00');}
+ document.getElementById('targetDate').textContent=fmtDate(target,{day:'numeric',month:'long',year:'numeric'}).toUpperCase();
+ document.getElementById('nextName').textContent=first.name;document.getElementById('nextWhen').textContent=fmtTime(first);
+ document.getElementById('status').textContent=diff<=0?'COMPLETED':diff<86400000?'LESS THAN 24H':'COMING UP';
+ renderSchedule(upcoming);
+}
+function renderSchedule(upcoming){
+ const now=Date.now(), list=sorted();
+ document.getElementById('examCount').textContent=`${list.length} ${list.length===1?'exam':'exams'}`;
+ document.getElementById('schedule').innerHTML=list.map(e=>{
+ const d=parseIST(e), passed=d.getTime()<=now, active=upcoming&&e.date===upcoming.date&&e.time===upcoming.time&&e.name===upcoming.name;
+ return `<div class="event"><div class="daybox"><b>${fmtDate(d,{day:'2-digit'})}</b><small>${fmtDate(d,{month:'short'}).toUpperCase()}</small></div><div class="eventinfo"><b>${esc(e.name)}</b><small>${fmtDate(d,{weekday:'short'})} · ${fmtDate(d,{hour:'2-digit',minute:'2-digit',hour12:true})} IST</small></div><span class="tag">${passed?'DONE':active?'NEXT':'UPCOMING'}</span></div>`;
+ }).join('');
+}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+document.getElementById('editBtn').onclick=()=>{document.getElementById('editor').classList.toggle('hidden');};
+document.getElementById('closeBtn').onclick=()=>document.getElementById('editor').classList.add('hidden');
+document.getElementById('wallBtn').onclick=()=>document.getElementById('tips').classList.toggle('hidden');
+document.getElementById('saveBtn').onclick=()=>{
+ const name=document.getElementById('examName').value.trim(),date=document.getElementById('examDate').value,time=document.getElementById('examTime').value;
+ if(!name||!date||!time){alert('Please fill in the exam name, date and time.');return;}
+ const item={name,date,time}; const idx=exams.findIndex(e=>e.name===document.getElementById('nextName').textContent);
+ if(idx>=0)exams[idx]=item;else exams.push(item);save();update();document.getElementById('editor').classList.add('hidden');
+};
+document.getElementById('resetBtn').onclick=()=>{if(confirm('Reset to the original timetable dates?')){exams=defaults.map(e=>({...e}));save();update();}};
+update();setInterval(update,1000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)update();});
+</script></body></html>
